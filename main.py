@@ -5,7 +5,7 @@ from pygame.locals import *
 
 from auxilio import *
 from seres.personagem import *
-from objetos.chao import *
+from objetos.slots import *
 
 from classMapa import *
 
@@ -33,9 +33,11 @@ personagem = Persona(janela, mapa, 0, 0)
 
 lista = []
 
-for a in range(0, 40):
-    for b in range(0, 30):
-        lista.append(Chao(janela, mapa, pos(a), pos(b)))
+for a in range(-1, 2):
+    for b in range(-1, 2):
+        lista.append(Slots(janela, mapa, a, b))
+
+print(lista)
 
 janela_aberta = True
 

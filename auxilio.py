@@ -1,3 +1,5 @@
+import math
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -7,3 +9,6 @@ BLUE = (30, 30, 220)
 
 def pos(num):
     return (num * 32)
+
+def posM(num):
+    return (num * 32 * 40)

@@ -14,4 +14,4 @@ class Chao:
 
     def atualizar(self):
         rect(self.janela, GREEN, ((self.posX + self.mapa.posX), (self.posY + self.mapa.posY), self.tamX, self.tamY))
-        rect(self.janela, RED, ((self.posX + self.mapa.posX), (self.posY + self.mapa.posY), self.tamX, self.tamY), 2)
+        rect(self.janela, RED, ((self.posX + self.mapa.posX), (self.posY + self.mapa.posY), self.tamX, self.tamY), 1)
