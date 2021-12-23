@@ -4,6 +4,10 @@ import pygame
 from pygame.locals import *
 
 from auxilio import *
+from seres.personagem import *
+from objetos.chao import *
+
+from classMapa import *
 
 janela = pygame.display.set_mode((1366, 786))
 pygame.display.set_caption("Mine World")
@@ -22,6 +26,16 @@ teclas = [False,        # A                    0
          False,         # seta pra baixo       11
          False,         # seta pra esquerda    12
          False]         # seta pra direita     13
+
+mapa = Mapa()
+
+personagem = Persona(janela, mapa, 0, 0)
+
+lista = []
+
+for a in range(0, 40):
+    for b in range(0, 30):
+        lista.append(Chao(janela, mapa, pos(a), pos(b)))
 
 janela_aberta = True
 
@@ -97,5 +111,10 @@ while janela_aberta:
 
     if janela_aberta == False:
         pass
+
+    for a in lista:
+        a.atualizar()
+
+    personagem.atualizar(teclas)
 
     pygame.display.update()
