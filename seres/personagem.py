@@ -1,11 +1,15 @@
 import pygame
 from pygame.draw import *
 from auxilio import *
+from math import floor
 
 class Persona:
     def __init__(self, janela, mapa, x, y):
         self.janela = janela
         self.mapa = mapa
+
+        self.locX = floor((x / 40) / 32)
+        self.locY = floor((y / 40) / 32)
 
         self.posX = x
         self.posY = y
@@ -16,6 +20,9 @@ class Persona:
         self.veld = 6
 
     def atualizar(self, keys):
+
+        self.locX = floor((self.posX / 40) / 32)
+        self.locY = floor((self.posY / 40) / 32)
 
         numt = False
         numero = 0
