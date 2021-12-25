@@ -1,60 +1,46 @@
 #!/usr/bin/python3
 
-# bibliotecas
 import pygame
 from pygame.locals import *
-
+from personagem import *
 from auxilio import *
-from seres.personagem import *
-from objetos.parts import *
 
-from classMapa import *
-# ==============================================================================
-# Carrega o jogo
-
-# tela
 janela = pygame.display.set_mode((1366, 786))
 pygame.display.set_caption("Mine World")
 
-# mostra quais as teclas precionadas
-teclas = [False,        # A                    0
-         False,         # W                    1
-         False,         # S                    2
-         False,         # D                    3
-         False,         # J / 1                4
-         False,         # K / 2                5
-         False,         # L / 3                6
-         False,         # U / 4                7
-         False,         # I / 5                8
-         False,         # O / 6                9
-         False,         # seta pra cima        10
-         False,         # seta pra baixo       11
-         False,         # seta pra esquerda    12
-         False]         # seta pra direita     13
+teclas = [
+False,    # A                    0
+False,    # W                    1
+False,    # S                    2
+False,    # D                    3
+False,    # J                    4
+False,    # K                    5
+False,    # L                    6
+False,    # U                    7
+False,    # I                    8
+False,    # O                    9
+False,    # seta pra cima        10
+False,    # seta pra baixo       11
+False,    # seta pra direita     12
+False,    # seta pra esquerda    13
+False     # espaço               14
+]
 
-mapa = Mapa() # é um ponto de orientação (x, y) para tudo
+ponto_de_referencia = Ref()
+personagem = Personagem(janela, ponto_de_referencia, 0, 0)
 
-personagem = Persona(janela, mapa, 0, 0)
+rodando = True
+while rodando:
 
-lista = [] # lista de pedaços do mapa que formam o mapa
+    pygame.time.delay(33)
 
-# ==============================================================================
-# Mantem a janela aberta
-
-janela_aberta = True
-
-while janela_aberta:
-
-    pygame.time.delay(100)
-
-    janela.fill(GREEN)
+    janela.fill(BLACK)
 
     for evento in pygame.event.get():
         if evento.type == QUIT:
-            janela_aberta = False
+            rodando = False
 
-        # verifica as teclas precionadas e as coloca na variavel <teclas>
-        if evento.type == pygame.KEYDOWN:
+        if evento.type == KEYDOWN:
             if evento.key == K_a:
                 teclas[0] = True
             if evento.key == K_w:
@@ -79,11 +65,14 @@ while janela_aberta:
                 teclas[10] = True
             if evento.key == K_DOWN:
                 teclas[11] = True
-            if evento.key == K_LEFT:
-                teclas[12] = True
             if evento.key == K_RIGHT:
+                teclas[12] = True
+            if evento.key == K_LEFT:
                 teclas[13] = True
-        if evento.type == pygame.KEYUP:
+            if evento.key == K_SPACE:
+                teclas[14] = True
+
+        if evento.type == KEYUP:
             if evento.key == K_a:
                 teclas[0] = False
             if evento.key == K_w:
@@ -108,30 +97,13 @@ while janela_aberta:
                 teclas[10] = False
             if evento.key == K_DOWN:
                 teclas[11] = False
-            if evento.key == K_LEFT:
-                teclas[12] = False
             if evento.key == K_RIGHT:
+                teclas[12] = False
+            if evento.key == K_LEFT:
                 teclas[13] = False
+            if evento.key == K_SPACE:
+                teclas[14] = False
 
-    # ==========================================================================
-    # Processamento do jogo
-
-    # finaliza e salva as informações
-    if janela_aberta == False:
-        pass
-
-    # atualiza o mapa parts mais proximas          atualizar somente os proximos
-    for a in range(-1, 2):
-        for b in range(-1, 2):
-            funcionou = False
-            for c in lista:
-                if c.locX == (a + personagem.locX):
-                    if c.locY == (b + personagem.locY):
-                        funcionou = True
-                        c.atualizar()
-            if funcionou == False:
-                lista.append(Parts(janela, mapa, (a + personagem.locX), (b + personagem.locY)))
-
-    personagem.atualizar(teclas) # atualiza o personagem principal
+    personagem.atualizar(teclas)
 
     pygame.display.update()
